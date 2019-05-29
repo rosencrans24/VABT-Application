@@ -1,0 +1,205 @@
+﻿{%extends "dashboard/base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+{% block submit_buttons_bottom %}
+
+<script> function myFunc() { alert("Notification has been sent!") }</script>
+
+
+
+{% for post in posts %}
+
+
+
+{% if post.student.username == view.kwargs.username %}
+        <article class="media content-section">
+            <img class="rounded-circle img-thumbnail mr-4 grow" src="{{ post.student.profile.image.url }}" />
+            <div class="media-body">
+                <div class="article-metadata">
+                    <small class="text-muted">Begin date: {{ post.date_began|date:"F d, Y T g:i" }}</small>
+                </div>
+                <h4><a class="article-title" href="#">Name: {{ post.student.last_name }},{{post.student.first_name}}</a></h4>
+                <h5>Email: {{ post.student.email }}</h5>
+                <h5>Phone#: {{ post.student.userextended.phone_number }}</h5>
+                <p class="article-content">Notes: {{ post.comment }}</p>
+            </div>
+                
+        </article>
+
+  <!--progress bar begins here!-->
+<div class="progress mb-3" style="height: 50px">
+    <!--
+  <div class="progress-bar bg-success" role="progressbar" {% if post.progress == 0 %} style="width: 0%;" {% endif %}
+       {% if post.progress == 1 %} style="width: 16%;" {% endif %}
+       {% if post.progress == 2 %} style="width: 32%;" {% endif %}
+       {% if post.progress == 3 %} style="width: 48%;" {% endif %}
+       {% if post.progress == 4 %} style="width: 64%;" {% endif %}
+       {% if post.progress == 5 %} style="width: 83%;" {% endif %}
+       {% if post.progress == 6 %} style="width: 100%;" {% endif %}
+       
+       aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">Progress</div>
+-->
+    {% if post.progress == 0 %}
+      <h5 style="color:dimgrey;">No forms has been certified yet.</h5>
+      <div class="progress-bar bg-danger" role="progressbar" style="width: 0%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+    {% endif %}
+    {% if post.progress == 1 %}
+      <div class="progress-bar bg-danger" role="progressbar" style="width: 16%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+    {% endif %}
+    {% if post.progress == 2 %}
+      <div class="progress-bar bg-warning" role="progressbar" style="width: 32%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+    {% endif %}
+    {% if post.progress == 3 %}
+      <div class="progress-bar bg-warning" role="progressbar" style="width: 48%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+    {% endif %}
+    {% if post.progress == 4 %}
+      <div class="progress-bar bg-info" role="progressbar" style="width: 64%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+    {% endif %}
+    {% if post.progress == 5 %}
+      <div class="progress-bar bg-info" role="progressbar" style="width: 83%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+    {% endif %}
+    {% if post.progress == 6 %}
+      <div class="progress-bar bg-success" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"><h5 style="color:white;">Certified</h5></div>
+    {% endif %}
+</div>
+
+
+
+  <!--table begins here!-->
+        <table class="table table-hover">
+        <caption>Last Certified by:</caption>
+        <thead class="thead-light">
+            <tr>
+                <th scope="col">{{post.student.first_name}}'s Forms</th>
+                <th scope="col">Edit Date</th>
+                <th scope="col">Action</th>
+                <th scope="col">Status</th>
+
+            </tr>
+        </thead>
+        <tbody>
+        <!--row1 begins here!-->
+
+        <tr>
+            
+            {%if not post.student.userextended.cert_of_elig  %}
+                <th><a href="#" class="text-muted" data-toggle="tooltip" data-placement="top" title="{{ post.student.first_name }} {{ post.student.last_name }} has not submitted this form yet." disabled>Student has not uploaded Certificate of Eligibility</a></th>
+            {%else%}
+                <td><a href="/media/{{post.student.userextended.cert_of_elig}}" target="_blank">Open Students Certificate of Eligibilty</a></td>
+            {%endif %}
+            <td><small class="text-muted">{{ post.date_cert|date:"F d, Y T g:i" }}</small></td>
+            <td>
+                <form method="get">
+
+                    <input type="submit" {% if post.Certificate_of_eligibility == False %}class="btn btn-outline-success" value="Certify" {%else%}class="btn btn-outline-danger" value="Uncertify" {% endif %} name="boolcoecert" />
+
+                </form>
+            </td>
+            <td>{% if post.Certificate_of_eligibility == False %} <img src="/media/red_check.png">{% else %} <img src="/media/green_check.png">{% endif %}</td>
+        </tr>
+
+        <!--row2 begins here!-->
+
+        <tr>
+        {%if not post.student.userextended.MVP_info_sheet %}
+            <th><a href="#" class="text-muted" data-toggle="tooltip" data-placement="top" title="{{ post.student.first_name }} {{ post.student.last_name }} has not submitted this form yet." disabled>Student has not uploaded MVP Information Sheet</a></th>
+        {%else%}
+            <td><a href="/media/{{post.student.userextended.MVP_info_sheet}}" target="_blank">Open Students MVP Information sheet</a></td>
+        {%endif %}
+        <td><small class="text-muted">{{ post.date_info|date:"F d, Y T g:i" }}</small></td> 
+        <td><form method="get">
+                
+                    <input type="submit" {% if post.MVP_information_sheet == False %}class="btn btn-outline-success" value="Certify" {%else%}class="btn btn-outline-danger" value="Uncertify" {% endif %} name="boolinfocert"  />
+                    
+            </form>
+        </td>
+        <td>{% if post.MVP_information_sheet == False %} <img src="/media/red_check.png"> {% else %} <img src="/media/green_check.png">{% endif %}</td>
+
+        </tr>
+
+        <!--row3 begins here!-->
+
+        <tr>
+            {%if not post.student.userextended.stud_respon %}
+                <th><a href="#" class="text-muted" data-toggle="tooltip" data-placement="top" title="{{ post.student.first_name }} {{ post.student.last_name }} has not submitted this form yet." disabled> Student has not uploaded Student Responsibilty sheet</a></th>
+            {%else%}
+                <td><a href="/media/{{post.student.userextended.stud_respon}}" target="_blank">Open Students Responsibility Sheet</a></td>
+            {%endif %}    
+        <td><small class="text-muted">{{ post.date_respo|date:"F d, Y T g:i" }}</small></td> 
+        <td><form method="get" >
+                
+                    <input type="submit" {% if post.Student_responsibility == False %}class="btn btn-outline-success" value="Certify" {%else%}class="btn btn-outline-danger" value="Uncertify" {% endif %} name="boolrespcert"  />
+           
+            </form>
+        </td>
+        <td>{% if post.Student_responsibility == False %} <img src="/media/red_check.png"> {% else %} <img src="/media/green_check.png">{% endif %}</td>
+
+        </tr>
+
+        <!--row4 begins here!-->
+
+            <tr>
+        {%if not post.student.userextended.resid_tuit_app %}
+            <th><a href="#" class="text-muted" data-toggle="tooltip" data-placement="top" title="{{ post.student.first_name }} {{ post.student.last_name }} has not submitted this form yet." disabled>Student has not uploaded Resident Tuition Application</a></th>
+        {%else%}
+            <td><a href="/media/{{post.student.userextended.resid_tuit_app}}" target="_blank">Open Students MVP Information sheet</a></td>
+        {%endif %}
+        <td><small class="text-muted">{{ post.date_tuition|date:"F d, Y T g:i" }}</small></td> 
+        <td><form method="get" >
+                
+                    <input type="submit" {% if post.Resident_tuition_app == False %}class="btn btn-outline-success" value="Certify" {%else%}class="btn btn-outline-danger" value="Uncertify" {% endif %} name="booltuition"  />
+                    
+            </form>
+        </td>
+        <td>{% if post.Resident_tuition_app == False %} <img src="/media/red_check.png"> {% else %} <img src="/media/green_check.png">{% endif %}</td>
+
+        </tr>
+   
+        <!--row5 begins here!-->
+
+   <!-- {% if post.student.userextended.chapter == '33' or post.student.userextended.chapter == '30' or post.student.userextended.chapter == '35' or post.student.userextended.chapter == '1606' or post.student.userextended.chapter == '31' %} -->
+            <tr> 
+                {%if not post.student.userextended.conc_stud_sched %}
+                    <th><a href="#" class="text-muted" data-toggle="tooltip" data-placement="top" title="{{ post.student.first_name }} {{ post.student.last_name }} has not submitted this form yet." disabled>Student has not uploaded MVP Information Sheet</a></th>
+                {%else%}
+                    <td><a href="/media/{{post.student.userextended.conc_stud_sched}}" target="_blank">Open Students Concise Student Schedule</a></td>
+                {%endif %}
+                <td><small class="text-muted">{{ post.date_concise|date:"F d, Y T g:i" }}</small></td> 
+                <td>
+                <form method="get" >
+                    <input type="submit" {% if post.Concise_student_schedule == False %} class="btn btn-outline-success" value="Certify" {%else%}class="btn btn-outline-danger" value="Uncertify" {% endif %} name="boolconcise"/>
+                    </form>
+                </td>
+                <td>{% if post.Concise_student_schedule == False %} <img src="/media/red_check.png">{% else %} <img src="/media/green_check.png">{% endif %}</td>
+            </tr>
+
+        <!--row6 begins here!-->
+
+            <tr>
+            {%if not post.student.userextended.star_deg_audit %}
+            <th><a href="#" class="text-muted" data-toggle="tooltip" data-placement="top" title="{{ post.student.first_name }} {{ post.student.last_name }} has not submitted this form yet." disabled>Student has not uploaded their STAR Degree Audit</a></th>
+            {%else%}
+            <td><a href="/media/{{post.student.userextended.star_deg_audit}}" target="_blank">Open Students STAR Degree Audit</a></td>
+            {%endif %}
+            <td><small class="text-muted">{{ post.date_audit|date:"F d, Y T g:i" }}</small></td> 
+            <td>
+            <form method="get" >
+                        <input type="submit" {% if post.Star_degree_audit == False %} class="btn btn-outline-success" value="Certify" {%else%}class="btn btn-outline-danger" value="Uncertify" {% endif %} name="boolaudit"  />
+            </form>
+            </td>
+            <td>{% if post.Star_degree_audit == False %} <img src="/media/red_check.png">{% else %} <img src="/media/green_check.png">{% endif %}</td>
+
+            </tr>
+        </tbody>
+    </table>
+{% endif %}
+    
+{% endif %}
+{% endfor %}
+
+
+    <form action="#" method="get" >
+        <input type="submit" onclick="myFunc" class="btn btn-success btn-lg btn-block" value="Notify Student" name="certbtn">
+    </form>
+{% endblock submit_buttons_bottom %}
+{% endblock content %}

@@ -1,0 +1,228 @@
+﻿{%extends "dashboard/base.html" %}
+{% block content %}
+
+<div>
+    <ul class="nav nav-tabs">
+      <li class="nav-item">
+        <a class="nav-link active" href="#chapter33" role="tab" data-toggle="tab">Chapter 33</a>
+      </li>
+     <li class="nav-item">
+        <a class="nav-link" href="#chapter30" role="tab" data-toggle="tab">Chapter 30</a>
+      </li> <li class="nav-item">
+        <a class="nav-link" href="#chapter31" role="tab" data-toggle="tab">Chapter 31</a>
+      </li> <li class="nav-item">
+        <a class="nav-link" href="#chapter35" role="tab" data-toggle="tab">Chapter 35</a>
+      </li>
+     <li class="nav-item">
+        <a class="nav-link" href="#chapter16" role="tab" data-toggle="tab">Chapter 1606</a>
+      </li>
+    </ul>
+
+    <div class="tab-content">
+
+        <div role"tabpanel" class="tab-pane active" id="chapter33">
+            {% for post in posts %}
+                {% if post.student.userextended.chapter == '33' %}
+
+                    <article class="media content-section">
+                        <img class="rounded-circle article-img" src="{{ post.student.profile.image.url }}" />
+                        <div class="media-body">
+                            
+                            <div class="article-metadata">
+                                <a class="mr-2" href="{% url 'user-posts' post.student.username %}">{{ post.student.last_name }} {{ post.student.first_name }}</a>
+                                <small class="text-muted ml-10">Begin date: {{ post.date_began|date:"F d, Y T g:i" }}</small>
+
+                            </div>
+                                <a class="mr-2">Chapter-{{ post.student.userextended.chapter }}</a>
+                         <!--progress bar begins here!-->
+
+                        <div>          
+                        {% if post.progress == 0 %}
+                          <a>No forms have been certified yet.</a>
+                        {% endif %}
+                        {% if post.progress == 1 %}
+                             <a>1/6 forms certified</a>
+                        {% endif %}
+                        {% if post.progress == 2 %}
+                             <a>2/6 forms certified</a>
+                        {% endif %}
+                        {% if post.progress == 3 %}
+                             <a>3/6 forms certified</a>
+                        {% endif %}
+                        {% if post.progress == 4 %}
+                             <a>4/6 forms certified</a>
+                        {% endif %}
+                        {% if post.progress == 5 %}
+                             <a>5/6 forms certified</a>
+                        {% endif %}
+                        {% if post.progress == 6 %}
+                             <a>certified</a>
+                        {% endif %}
+                             </div>
+                        </div>
+                    </article>
+                {% endif %}
+            {% endfor %} 
+        </div>
+
+        <div role"tabpanel" class="tab-pane" id="chapter30">
+            {% for post in posts %}
+                {% if post.student.userextended.chapter == '30' %}
+                    <article class="media content-section">
+                        <img class="rounded-circle article-img" src="{{ post.student.profile.image.url }}" />
+                        <div class="media-body">
+                            <div class="article-metadata">
+                                <a class="mr-2" href="{% url 'user-posts' post.student.username %}">{{ post.student.last_name }} {{ post.student.first_name }}</a>
+         
+                            </div>
+                                <a class="mr-2">Chapter-{{ post.student.userextended.chapter }}</a>
+                        <div>          
+                        {% if post.progress == 0 %}
+                          <a>No forms has been certified yet.</a>
+                        {% endif %}
+                        {% if post.progress == 1 %}
+                             <a>1/6 forms certified</a>
+                        {% endif %}
+                        {% if post.progress == 2 %}
+                             <a>2/6 forms certified</a>
+                        {% endif %}
+                        {% if post.progress == 3 %}
+                             <a>3/6 forms certified</a>
+                        {% endif %}
+                        {% if post.progress == 4 %}
+                             <a>4/6 forms certified</a>
+                        {% endif %}
+                        {% if post.progress == 5 %}
+                             <a>5/6 forms certified</a>
+                        {% endif %}
+                        {% if post.progress == 6 %}
+                             <a>certified</a>
+                        {% endif %}
+                             </div>
+                        </div>
+                    </article>
+                {% endif %}
+            {% endfor %} 
+
+        </div>
+
+        <div role"tabpanel" class="tab-pane" id="chapter31">
+             {% for post in posts %}
+                {% if post.student.userextended.chapter == '31' %}
+                <article class="media content-section">
+                    <img class="rounded-circle article-img" src="{{ post.student.profile.image.url }}" />
+                    <div class="media-body">
+                        <div class="article-metadata">
+                                <a class="mr-2" href="{% url 'user-posts' post.student.username %}">{{ post.student.last_name }} {{ post.student.first_name }}</a>
+                            </div>
+                                <a class="mr-2">Chapter-{{ post.student.userextended.chapter }}</a>
+                        <div>          
+                        {% if post.progress == 0 %}
+                          <a>No forms has been certified yet.</a>
+                        {% endif %}
+                        {% if post.progress == 1 %}
+                             <a>1/6 forms certified</a>
+                        {% endif %}
+                        {% if post.progress == 2 %}
+                             <a>2/6 forms certified</a>
+                        {% endif %}
+                        {% if post.progress == 3 %}
+                             <a>3/6 forms certified</a>
+                        {% endif %}
+                        {% if post.progress == 4 %}
+                             <a>4/6 forms certified</a>
+                        {% endif %}
+                        {% if post.progress == 5 %}
+                             <a>5/6 forms certified</a>
+                        {% endif %}
+                        {% if post.progress == 6 %}
+                             <a>certified</a>
+                        {% endif %}
+                             </div>
+                        </div>
+                </article>
+                {% endif %}
+            {% endfor %} 
+        </div>
+
+        <div role"tabpanel" class="tab-pane" id="chapter35">
+             {% for post in posts %}
+                {% if post.student.userextended.chapter == '35' %}
+                <article class="media content-section">
+                    <img class="rounded-circle article-img" src="{{ post.student.profile.image.url }}" />
+                    <div class="media-body">
+                        <div class="article-metadata">
+                                <a class="mr-2" href="{% url 'user-posts' post.student.username %}">{{ post.student.last_name }} {{ post.student.first_name }}</a>
+                            </div>
+                                <a class="mr-2">Chapter-{{ post.student.userextended.chapter }}</a>
+                        <div>          
+                        {% if post.progress == 0 %}
+                          <a>No forms has been certified yet.</a>
+                        {% endif %}
+                        {% if post.progress == 1 %}
+                             <a>1/6 forms certified</a>
+                        {% endif %}
+                        {% if post.progress == 2 %}
+                             <a>2/6 forms certified</a>
+                        {% endif %}
+                        {% if post.progress == 3 %}
+                             <a>3/6 forms certified</a>
+                        {% endif %}
+                        {% if post.progress == 4 %}
+                             <a>4/6 forms certified</a>
+                        {% endif %}
+                        {% if post.progress == 5 %}
+                             <a>5/6 forms certified</a>
+                        {% endif %}
+                        {% if post.progress == 6 %}
+                             <a>certified</a>
+                        {% endif %}
+                             </div>
+                        </div>
+                </article>
+                {% endif %}
+            {% endfor %} 
+        </div>
+        <div role"tabpanel" class="tab-pane" id="chapter16">
+             {% for post in posts %}
+                {% if post.student.userextended.chapter == '1606' %}
+                <article class="media content-section">
+                    <img class="rounded-circle article-img" src="{{ post.student.profile.image.url }}" />
+                    <div class="media-body">
+                        <div class="article-metadata">
+                                <a class="mr-2" href="{% url 'user-posts' post.student.username %}">{{ post.student.last_name }} {{ post.student.first_name }}</a>
+                            </div>
+                                <a class="mr-2">Chapter-{{ post.student.userextended.chapter }}</a>
+                        <div>          
+                        {% if post.progress == 0 %}
+                          <a>No forms has been certified yet.</a>
+                        {% endif %}
+                        {% if post.progress == 1 %}
+                             <a>1/6 forms certified</a>
+                        {% endif %}
+                        {% if post.progress == 2 %}
+                             <a>2/6 forms certified</a>
+                        {% endif %}
+                        {% if post.progress == 3 %}
+                             <a>3/6 forms certified</a>
+                        {% endif %}
+                        {% if post.progress == 4 %}
+                             <a>4/6 forms certified</a>
+                        {% endif %}
+                        {% if post.progress == 5 %}
+                             <a>5/6 forms certified</a>
+                        {% endif %}
+                        {% if post.progress == 6 %}
+                             <a>certified</a>
+                        {% endif %}
+                             </div>                        </div>
+                </article>
+                {% endif %}
+            {% endfor %} 
+        </div>
+    </div>
+</div>
+
+   
+
+{% endblock content %}
